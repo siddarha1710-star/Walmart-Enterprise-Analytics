@@ -1,0 +1,47 @@
+// ==========================================
+// WALMART TIME INTELLIGENCE DAX MEASURES
+// ==========================================
+
+// 1. Total Base Sales / Revenue
+Total Revenue = SUM('Sales_Data'[Sales])
+
+// 2. Last Year Revenue Baseline
+// Calculates total revenue for the identical period in the previous calendar year
+Revenue LY = 
+CALCULATE(
+    [Total Revenue], 
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+// 3. Year-over-Year Revenue Variance Amount
+Revenue YoY Variance = [Total Revenue] - [Revenue LY]
+
+// 4. Year-over-Year Revenue Growth Percentage
+// Uses DIVIDE to handle null or zero denominators gracefully without throwing infinity errors
+Revenue YoY % = 
+DIVIDE(
+    [Revenue YoY Variance], 
+    [Revenue LY], 
+    0
+)
+
+// 5. Total Base Profit Pool
+Total Profit = SUM('Sales_Data'[Profit])
+
+// 6. Last Year Profit Baseline
+Profit LY = 
+CALCULATE(
+    [Total Profit], 
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+// 7. Year-over-Year Profit Variance Amount
+Profit YoY Variance = [Total Profit] - [Profit LY]
+
+// 8. Year-over-Year Profit Growth Percentage
+Profit YoY % = 
+DIVIDE(
+    [Profit YoY Variance], 
+    [Profit LY], 
+    0
+)
