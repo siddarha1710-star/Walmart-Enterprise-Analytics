@@ -1,0 +1,41 @@
+// ==========================================
+// WALMART KPI & CONDITIONAL FORMATTING DAX
+// ==========================================
+
+// 1. Core Transaction Count
+Total Transactions = COUNTROWS('Sales_Data')
+
+// 2. Last Year Transaction Count Baseline
+Transactions LY = 
+CALCULATE(
+    [Total Transactions], 
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+// 3. Year-over-Year Transaction Growth Percentage
+Transactions YoY % = 
+DIVIDE(
+    [Total Transactions] - [Transactions LY], 
+    [Transactions LY], 
+    0
+)
+
+// 4. Dynamic Revenue YoY Directional Indicator Arrow
+// Injects localized UNICHAR visual flags to drive instant card clarity
+Revenue YoY % Arrow = 
+VAR YoY_Val = [Revenue YoY %]
+RETURN
+IF(
+    YoY_Val > 0, 
+    "▲ " & FORMAT(YoY_Val, "+0.0%"), 
+    "▼ " & FORMAT(YoY_Val, "0.0%")
+)
+
+// 5. Conditional Font/Background Color Alert Driver
+// Assigns hex codes programmatically to feed your conditional matrix styling
+YoY Color Metric = 
+IF(
+    [Revenue YoY %] >= 0, 
+    "#00A36C", // Corporate Emerald Green for growth targets
+    "#D2143A"  // Deep Red for underperforming segments
+)
