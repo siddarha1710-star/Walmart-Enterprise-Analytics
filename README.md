@@ -64,7 +64,6 @@ Below is the optimized core transaction metrics view embedded into the executive
 ---
 
 ## 🖥️ Interactive Dashboard Preview
-*(Take a high-resolution screenshot of your final Walmart dashboard layout, save it as `walmart_dashboard.png` in your local project repository, push it to GitHub, and it will render dynamically below!)*
 
 Executive Summery
 <img width="1280" height="702" alt="wall" src="https://github.com/user-attachments/assets/2e068e30-f658-415e-80d8-2cff88cff7c1" />
